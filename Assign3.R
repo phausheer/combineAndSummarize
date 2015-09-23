@@ -2,31 +2,46 @@
 ### C:\Users\p622403\Documents\Work\Coursera\RProg
 ### Assign3.r
 ### 64 bit R 3.2.2
-########################################################################################################################################################
+### September 22, 2015 18:41
+#############################################################################
 ############################################################################
 ### inspectFeatures
 ############################################################################
 installComboSummaryPackages  <- function() {
   install.packages("gdata", dependencies = c("Depends","Suggests"))
+  install.packages("data.table", dependencies = c("Depends","Suggests"))
+}
+amIAtWork <- function() {
+  blnAtWorkI <- FALSE
+  return(blnAtWorkI)
 }
 ############################################################################
 ### inspectFeatures
 ############################################################################
 inspectFeatures  <- function() {
-  strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
+  blnAtWorkI <- FALSE
+  print(blnAtWorkI==TRUE)
+  if (blnAtWorkI) {
+    strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
+  }
+  else {
+    vDirNa <- c(getwd(), "\\Data\\")
+    strDirNa <- paste(vDirNa, collapse="")
+  }
   strFileNa <- "features.txt"
   vFullLocalFileName <- c(strDirNa, strFileNa)
   strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
+  print(strFullLocalFileName)
   dfFeatures  <- read.table(strFullLocalFileName)
   print(class(dfFeatures))
   #   print(head(dfFeatures))
   print(names(dfFeatures))
   print(str(dfFeatures))
   ### Save as local Excel File
-  strExcelFileNa <- "features.xls"
-  vFullLocalExcelFileName <- c(strDirNa, strExcelFileNa)
-  strFullLocalExcelFileName <- paste(vFullLocalExcelFileName, collapse="")
-  SaveDataFrameAsExcel(dfFeatures, strFullLocalExcelFileName)
+#   strExcelFileNa <- "features.xls"
+#   vFullLocalExcelFileName <- c(strDirNa, strExcelFileNa)
+#   strFullLocalExcelFileName <- paste(vFullLocalExcelFileName, collapse="")
+#   SaveDataFrameAsExcel(dfFeatures, strFullLocalExcelFileName)
 }
 ############################################################################
 ### inspectData
@@ -35,7 +50,14 @@ inspectData <- function() {
   library(data.table)
   ### Clear previously loaded varialbes and functions
   #   strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\train\\"
-  strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\test\\"
+  if (blnAtWorkI) {
+    strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\test\\"
+  }
+  else {
+    vDirNa <- c(getwd(), "\\Data\\test\\")
+    strDirNa <- paste(vDirNa, collapse="")
+  }
+  # strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\test\\"
   #   strFileNa <- "subject_train.txt"
   strFileNa <- "subject_test.txt"
   #   strFileNa <- "X_train.txt"
@@ -73,27 +95,6 @@ merge_Test_Train_Data <- function() {
 ### grepTest
 ### http://stackoverflow.com/questions/7187442/how-to-filter-a-vector-of-strings-in-r-based-on-string-matching
 ### ############################################################################
-grepTestDoesNotWork <- function() {
-  ### string contains
-#   vRaw <- c('cat', 'dog', 'cow', 'acat', 'adog', 'acow', 'adogcat', 'catb', 'bcow')
-#   vOnlyPets <- grep(glob2rx("*cat*"), vRaw, value = TRUE)
-#   print(vOnlyPets)
-  
-  strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
-  strFileNa <- "features.txt"
-  vFullLocalFileName <- c(strDirNa, strFileNa)
-  strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
-  dfFeatures  <- read.table(strFullLocalFileName)
-  print(class(dfFeatures))
-  #   print(head(dfFeatures))
-  print(names(dfFeatures))
-  print(str(dfFeatures))
-  vColumnNames <- as.vector(dfFeatures$V2)
-  print(length(vColumnNames))
-  vGoodColumns <- c(grep(glob2rx("*mean*"), vColumnNames, value = TRUE), grep(glob2rx("*std*"), vColumnNames, value = TRUE))
-  print(length(vGoodColumns))
-  print(vGoodColumns)
-}
 getAllColumnNameVector <- function() {
   strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
   strFileNa <- "features.txt"
@@ -125,13 +126,13 @@ getMeanStdColumnNames <- function(vColumnNames) {
   ##############################################################
   ### test grep
   ##############################################################
-#   print("*** grep test ***")
-#   vMatch <- c("mean","std")
-#   vMatches <- grep('mean|std', vAllColumnNames, value=TRUE)
-#   print("*** vMatches ***")
-#   print(class(vMatches))
-#   print(length(vMatches))
-#   print(vMatches)
+  #   print("*** grep test ***")
+  #   vMatch <- c("mean","std")
+  #   vMatches <- grep('mean|std', vAllColumnNames, value=TRUE)
+  #   print("*** vMatches ***")
+  #   print(class(vMatches))
+  #   print(length(vMatches))
+  #   print(vMatches)
   return(vMeanStdColumnNames)
 }
 ### ############################################################################
@@ -179,7 +180,7 @@ getTestDataSet <- function() {
   print(vblnGoodCols[1:7])
   
   # dtGoodCols <- dtContents[,vnGoodCols]
-   # dtGoodCols <- dtContents[, .("tGravityAcc-std()-Y", "tGravityAcc-std()-Z", "tBodyAccJerk-mean()-X" )]
+  # dtGoodCols <- dtContents[, .("tGravityAcc-std()-Y", "tGravityAcc-std()-Z", "tBodyAccJerk-mean()-X" )]
   ######################################################################################################################
   ### Subsetting a data.table
   ### http://stackoverflow.com/questions/28094645/select-subset-of-columns-in-data-table-r
@@ -191,11 +192,11 @@ getTestDataSet <- function() {
   print(ncol(dtGoodCols))
   # print(dtGoodCols[1:3,])
   
-#   vblnColPos <- as.vector(vAllColumnNames %in% vMeanStdColumnNames)
-#   print("*** vblnColPos ***")
-#   print(class(vblnColPos))
-#   print(length(vblnColPos))
-#   print(vblnColPos[1:7])
+  #   vblnColPos <- as.vector(vAllColumnNames %in% vMeanStdColumnNames)
+  #   print("*** vblnColPos ***")
+  #   print(class(vblnColPos))
+  #   print(length(vblnColPos))
+  #   print(vblnColPos[1:7])
   
   #################################################################
   ### get Activity Column
@@ -254,10 +255,10 @@ getTestDataSet <- function() {
   print("*** dt81 End ***")
   
   ### debug ###
-#   strExcelFileNa <- "dt81.xls"
-#   vFullLocalFileName <- c(strDirNa, strExcelFileNa)
-#   strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
-#   SaveDataFrameAsExcel(dt81, strFullLocalFileName)
+  #   strExcelFileNa <- "dt81.xls"
+  #   vFullLocalFileName <- c(strDirNa, strExcelFileNa)
+  #   strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
+  #   SaveDataFrameAsExcel(dt81, strFullLocalFileName)
   
   print(" getMeanStdColumns - complete")
   return(dt81)
@@ -308,8 +309,8 @@ getTrainDataSet <- function() {
   print("*** vMeanStdColumnNames ***")
   print(length(vMeanStdColumnNames))
   # print(vMeanStdColumnNames[11:20])
-
-    ######################################################################################################################
+  
+  ######################################################################################################################
   ### Subsetting a data.table
   ### http://stackoverflow.com/questions/28094645/select-subset-of-columns-in-data-table-r
   ######################################################################################################################
@@ -374,10 +375,10 @@ getTrainDataSet <- function() {
   print("*** dt81 End  ***")
   
   ### debug ###
-#   strExcelFileNa <- "dt81.xls"
-#   vFullLocalFileName <- c(strDirNa, strExcelFileNa)
-#   strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
-#   SaveDataFrameAsExcel(dt81, strFullLocalFileName)
+  #   strExcelFileNa <- "dt81.xls"
+  #   vFullLocalFileName <- c(strDirNa, strExcelFileNa)
+  #   strFullLocalFileName <- paste(vFullLocalFileName, collapse="")
+  #   SaveDataFrameAsExcel(dt81, strFullLocalFileName)
   
   print(" getMeanStdColumns - complete")
   return(dt81)
