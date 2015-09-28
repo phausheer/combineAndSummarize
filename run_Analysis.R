@@ -38,7 +38,8 @@ inspectFeatures  <- function() {
 }
 getDataDir <- function() {
   ### Working on the LAN
-  strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
+  # strDirNa <- "\\\\wtors003\\isg-secure\\ISG Big Data\\R\\Source\\Coursera\\Data\\UCI HAR Dataset\\"
+  strDirNa <-getwd()
   return(strDirNa)
 }
 getColumnNamesFromFeaturesFile <- function() {
