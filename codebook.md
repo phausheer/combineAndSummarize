@@ -1,5 +1,7 @@
 #Human Activity Recognition Using Smartphones Dataset
 Version 1.0#
+#Human Activity Recognition Using Smartphones Dataset
+Version 1.0#
 
 #Original Readme.md#
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data. 
@@ -11,12 +13,9 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 - An identifier of the subject who carried out the experiment.
 
 #This exercise# combined the following datasets into 1 dataset :
-- 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-- 'train/X_train.txt': Training set.
-- 'train/y_train.txt': Training labels.
-- 'test/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-- 'test/X_train.txt': Testing set.
-- 'test/y_train.txt': Testing labels.
+- 'train/'test/ subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+- 'train/'test/X_train.txt': Training set.
+- 'train/'test/y_train.txt': Training labels.
 
 #Activity Codes to Descriptive Text#
 The Activity Codes column in file y_test.txt, labelled "V1" , was converted from a 1-byte alphabetic code to the text descriptive column called "activity" using the values in activity_labels.txt<br>
@@ -26,8 +25,6 @@ The Activity Codes column in file y_test.txt, labelled "V1" , was converted from
 4 SITTING<br>
 5 STANDING<br>
 6 LAYING<br>
-
-
 
 #Data columns filter#
 The 561 columns in file X_test.txt, and X_train.txt, were renamed using the features.txt file. <br>
